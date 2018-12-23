@@ -112,39 +112,17 @@ def main(args):
     try:
         if len(args) is 0 or (len(args) is 1 and (args[0] == "--help" or args[0] == "-h")):
             print("")
-            print(" Usage template for all tools (uses --spark-runner LOCAL when used with a Spark tool)")
-            print("    gatk AnyTool toolArgs")
-            print("")
-            print(" Usage template for Spark tools (will NOT work on non-Spark tools)")
-            print("    gatk SparkTool toolArgs  [ -- --spark-runner <LOCAL | SPARK | GCS> sparkArgs ]")
+            print(' Usage example: easyRun gatk --cluster-options "-file=/path/to -queue=new_cu -ppn=2 -depend=ID" --java-options "-Xmx20g" MarkDuplicates ...')
             print("")
             print(" Getting help")
-            print("    gatk --list       Print the list of available tools" )
+            print("    easyRun --list       Print the list of available tools" )
             print("")
-            print("    gatk Tool --help  Print help on a particular tool" )
+            print("    easyRun Tool --help  Print help on a particular tool" )
             print("")
-            print(" Configuration File Specification")
-            print("     --gatk-config-file                PATH/TO/GATK/PROPERTIES/FILE")
+            print("   --dry-run             may be specified to output the generated command line without running it")
+            print("   --cluster-options     'OPTION1[ OPTION2=Y ... ]'   optional - pass the given string of options to the ")
+            print("                         cluster at runtime.  ")
             print("")
-            print(" gatk forwards commands to GATK and adds some sugar for submitting spark jobs")
-            print("")
-            print("   --spark-runner <target>    controls how spark tools are run")
-            print("     valid targets are:")
-            print("     LOCAL:      run using the in-memory spark runner")
-            print("     SPARK:      run using spark-submit on an existing cluster ")
-            print("                 --spark-master must be specified")
-            print("                 --spark-submit-command may be specified to control the Spark submit command")
-            print("                 arguments to spark-submit may optionally be specified after -- ")
-            print("     GCS:        run using Google cloud dataproc")
-            print("                 commands after the -- will be passed to dataproc")
-            print("                 --cluster <your-cluster> must be specified after the --")
-            print("                 spark properties and some common spark-submit parameters will be translated ")
-            print("                 to dataproc equivalents")
-            print("")
-            print("   --dry-run      may be specified to output the generated command line without running it")
-            print("   --java-options 'OPTION1[ OPTION2=Y ... ]'   optional - pass the given string of options to the ")
-            print("                 java JVM at runtime.  ")
-            print("                 Java options MUST be passed inside a single string with space-separated values.")
             sys.exit(0)
 
         if len(args) is 1 and args[0] == "--list":
@@ -167,6 +145,6 @@ def main(args):
         sys.stderr.write(str(e)+"\n")
         sys.exit(3)
 
-# easyRun gatk --cluster-options "-file=/path/to -queue=new_cu -ppn=2 -depend=ID" --java-options "-Xmx20g" MarkDuplicates
+
 if __name__ == "__main__":
     main(sys.argv[1:])
